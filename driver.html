@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tráfico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo" ><i class="fas fa-bus"></i>tráfico.</a>
+        <nav class="navbar" id="navbar">
+            <a href="#location">Location</a>
+            <a href="#update">Update</a>
+            <a href="#Review">Review</a>
+
+        </nav>
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </header>
+    <section class="Location" id="location">
+        <h1 class="heading"><span>choose your</span>Station</h1>
+        <div class="row">
+            <div class="image">
+                 <img src="assets/imageSection.gif" alt="">
+            </div>
+       
+           <h2>Select Your Station</h2>
+           <div class="stations">
+              <label><input type="radio" name="station" value="station1" /> gare routiere </label>
+              <label><input type="radio" name="station" value="station2" />jarzouna</label>
+              <label><input type="radio" name="station" value="station3" />prepa</label>
+              <label><input type="radio" name="station" value="station4" />foyer</label>
+              <label><input type="radio" name="station" value="station5" />lycee</label>
+              <label><input type="radio" name="station" value="station6" />rond-point</label>
+              <label><input type="radio" name="station" value="station7" />iset</label>
+            </div>
+        </div>
+    </section>
+    <section class="Review" id="Update">
+        <h2>Report Delay or Problem</h2>
+        <textarea id="driverMessage" placeholder="Write here if there's a delay or issue..."></textarea>
+        <button onclick="sendDriverMessage()">Send to Students</button>
+    </section>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        const socket = io("http://localhost:3000");
+        const radios = document.querySelectorAll("input[name='station']");
+        radios.forEach(radio => {
+          radio.addEventListener("change", () => {
+           const stationId = radio.value;
+           socket.emit("stationUpdate", stationId);
+         });
+        })
+        function sendDriverMessage() {
+          const message = document.getElementById("driverMessage").value;
+          if (message.trim() !== "") {
+            socket.emit("driverMessage", message);
+            alert("Message sent to students!");
+            document.getElementById("driverMessage").value = "";
+          }
+        }
+    </script>
+    
+
+    
+ </body>
+</html>   

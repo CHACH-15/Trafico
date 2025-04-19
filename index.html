@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tráfico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <header class="header">
+            <a href="#" class="logo" ><i class="fas fa-bus"></i>tráfico.</a>
+            <nav class="navbar" id="navbar">
+                <a href="#about">about us</a>
+                <a href="#Login">Login</a>
+    
+            </nav>
+            <div id="menu-btn" class="fas fa-bars"></div>
+        </header>
+        <section class="about" id="about">
+            <h1 class="heading"><span>about</span>us</h1>
+            <div class="row">
+               <div class="image">
+                    <img src="assets/ssssss.gif" alt="">
+                </div>
+                <div class="content">
+                   <h3>Never miss your ride again,tráfico keeps you moving.</h3>
+                    <p>At tráfico , we know the struggle of waiting for a bus that may or may not show up. That’s why we built a simple and reliable way for students to check bus availability in real-time. Whether you're running late for class or planning your commute, our platform helps you stay informed.
+                    </p>
+                   
+                </div>
+            </div>
+         </section>
+        <section class="Login" id="Login">
+          
+            <div class="row">
+                <div class="image">
+                    <img src="assets/hjhjhj.gif" alt="">
+        
+                </div>
+                <form id="LoginForm">
+                    <h3>Login</h3>
+                    <div class="input-box">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="first-name" placeholder="First Name" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="last-name" placeholder="Last Name" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-id-card"></i>
+                        <input type="number" id="ID" placeholder=" ID" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-user-tag"></i>
+                        <select id="Role" class="box" required onchange="toggleFields()">
+                            <option value="" disabled selected hidden>Select Role</option>
+                            <option value="Student">🎓 Student</option>
+                            <option value="Driver">🚌 Driver</option>
+                            <option value="Professor">Professor</option>
+                        </select>
+                    </div>
+                    <div id="education-box" class="input-box" style="display: none;">
+                        <i class="fas fa-school"></i>//
+                        <select id="education" class="box">
+                            <option value="" disabled selected hidden>Select Your Institution</option>
+                            <option value="Institut Supérieur de Gestion de Bizerte">Institut Supérieur de Gestion de Bizerte</option>
+                            <option value="Institut Supérieur des Études Technologiques de Bizerte">Institut Supérieur des Études Technologiques de Bizerte</option>
+                            <option value="École Nationale des Ingénieurs de Bizerte">École Nationale des Ingénieurs de Bizerte</option>
+                        </select>
+                    </div>
+        
+                   
+                    <button type="submit" class="btn">Login</button>
+                </form>
+               
+            </div>
+        </section>
+
+ <script src="script.js"></script>  
+</body>

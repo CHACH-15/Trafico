@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tráfico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+    <body>
+
+        <header class="header">
+            <a href="#" class="logo" ><i class="fas fa-bus"></i>tráfico.</a>
+            <nav class="navbar" id="navbar">
+                <a href="#Time">Bus Time Schedue</a>
+                <a href="#Location">Location</a>
+                <a href="#Review">Review</a>
+    
+            </nav>
+            <div id="menu-btn" class="fas fa-bars"></div>
+        </header>
+        <section class="Time" id="Time">
+            <h1 class="heading"><span>Bus Time</span> Schedule</h1>
+            <div class="row">
+                <div class="image">
+                     <img src="assets/stationStudentHomepage.gif" alt="">
+                </div>
+                <div class="bus-schedule">
+                    <h2>Bus Schedule</h2>
+                    <table>
+                        <tr>
+                            <th>Time</th>
+                        </tr>
+                        <tr><td>08:00</td></tr>
+                        <tr><td>08:15</td></tr>
+                        <tr><td>08:30</td></tr>
+                        <tr><td>08:45</td></tr>
+                        <tr><td>09:00</td></tr>
+                        <tr><td>09:15</td></tr>
+                    </table>
+                    
+                </div>
+            </div>
+           
+        </section>
+        <section class="additional informations" id="infor">
+            
+            <div class="advice-grid">
+            
+              <div class="advice-card">
+                <i class="fas fa-bus"></i>
+                <p>Last Working Hour --> 18:00</p>
+              </div>
+             
+              <div class="advice-card">
+                <i class="fas fa-bus"></i>
+                <p>Unavailable Hours --> 12:00-13:00</p>
+              </div>
+              
+              <div class="advice-card">
+                <i class="fas fa-clock"></i>
+                <p>The driver takes a 15-minute break after every trip 🕒</p>
+              </div>
+            </div>
+        </section>
+        
+        <section class="bus-map" id="Location">
+            <h2>Live Bus Tracking</h2>
+            <div class="map">
+                <div class="station" id="station1">gare routiere</div>
+                <div class="station" id="station2">jarzouna</div>
+                <div class="station" id="station3">prepa</div>
+                <div class="station" id="station4">foyer</div>
+                <div class="station" id="station5">lycee</div>
+                <div class="station" id="station6">rond-point</div>
+                <div class="station" id="station7">iset</div>
+                <div class="bus" id="bus">🚌</div>
+            </div>
+
+
+        </section>
+        <div id="driverNotification" style="display:none; padding: 10px; background: #ffefc5; color: #333; margin: 10px 0; border-left: 5px solid #ff9900;"></div>
+        
+        <section class="Review" id="Review">
+            <h2>Submit Your Feedback</h2>
+            <textarea placeholder="Write your feedback here..."></textarea>
+            <div class="stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <button>Submit</button>
+        </section>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const stars = document.querySelectorAll(".stars span");
+        
+                stars.forEach((star, index) => {
+                    star.addEventListener("click", function() {
+                        stars.forEach((s, i) => {
+                            if (i <= index) {
+                                s.classList.add("active");
+                            } else {
+                                s.classList.remove("active");
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script>
+            const socket = io("http://localhost:3000");
+           socket.on("updateBusPosition", (stationId) => {
+              const bus = document.getElementById("bus");
+              const station = document.getElementById(stationId);
+
+              if (station && bus) {
+                const stationRect = station.getBoundingClientRect();
+                const mapRect = document.querySelector(".map").getBoundingClientRect();
+
+                const left = stationRect.left - mapRect.left;
+                const top = stationRect.top - mapRect.top;
+
+                bus.style.left = left + "px";
+                bus.style.top = top + "px";
+             } else {
+               console.warn("Station or bus not found!", stationId);
+             }
+            });
+            socket.on("studentNotification", (msg) => {
+              console.log("Student received message:", msg); 
+              const notif = document.getElementById("driverNotification");
+              if (notif) {
+                 notif.textContent = "🚨 Driver Alert: " + msg;
+                 notif.style.display = "block";
+                 setTimeout(() => {
+                   notif.style.display = "none";
+                 }, 10000); // 10 seconds for testing
+              } else {
+                  console.warn("Notification element not found!");
+              }
+            });
+         
+        </script>
+        
+    </body>
+</html>
